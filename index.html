@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Web Elements</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+transition:.5s;
+min-height:100vh;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:#fff;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+header h1{
+color:#0077b6;
+}
+
+.container{
+width:90%;
+max-width:900px;
+margin:30px auto;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+text-align:center;
+}
+
+.clock{
+font-size:28px;
+font-weight:bold;
+color:#0077b6;
+margin-bottom:20px;
+}
+
+p{
+font-size:18px;
+margin:15px 0;
+}
+
+.buttons{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin:25px 0;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+background:#0077b6;
+color:white;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+background:#023e8a;
+}
+
+.counter{
+margin-top:30px;
+}
+
+.counter h2{
+font-size:60px;
+margin:15px;
+color:#0077b6;
+}
+
+#quote{
+margin-top:25px;
+font-size:22px;
+font-weight:bold;
+color:#d62828;
+}
+
+#info{
+margin-top:25px;
+padding:20px;
+background:#caf0f8;
+border-radius:15px;
+display:none;
+}
+
+.dark{
+background:#111;
+}
+
+.dark header{
+background:#222;
+}
+
+.dark .container{
+background:#333;
+color:white;
+}
+
+.dark header h1{
+color:#00d4ff;
+}
+
+.dark #info{
+background:#555;
+}
+
+@media(max-width:700px){
+
+header{
+flex-direction:column;
+gap:15px;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+button{
+width:100%;
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Interactive Web Elements</h1>
+
+<button id="themeBtn">🌙 Dark Mode</button>
+
+</header>
+
+<div class="container">
+
+<div class="clock" id="clock"></div>
+
+<h2>JavaScript Interactive Dashboard</h2>
+
+<p id="message">
+Click any button below to interact with the webpage.
+</p>
+
+<div class="buttons">
+
+<button onclick="showGreeting()">Greeting</button>
+
+<button onclick="changeBackground()">Background</button>
+
+<button onclick="showQuote()">Random Quote</button>
+
+<button onclick="toggleInfo()">Show / Hide Info</button>
+
+</div>
+
+<div class="counter">
+
+<h3>Counter</h3>
+
+<h2 id="count">0</h2>
+
+<div class="buttons">
+
+<button onclick="increase()">+</button>
+
+<button onclick="decrease()">-</button>
+
+<button onclick="resetCounter()">Reset</button>
+
+</div>
+
+</div>
+
+<div id="quote"></div>
+
+<div id="info">
+
+<h3>Frontend Development</h3>
+
+<p>
+JavaScript allows webpages to respond instantly to user actions using
+DOM Manipulation, Events and Dynamic Content Updates.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const greetings=[
+"👋 Welcome!",
+"😊 Have a Great Day!",
+"🚀 Keep Learning JavaScript!",
+"💻 Happy Coding!",
+"🎉 You are doing Awesome!"
+];
+
+const quotes=[
+"Success comes from practice.",
+"Code. Learn. Repeat.",
+"Every expert was once a beginner.",
+"Programming is thinking, not typing.",
+"Believe in yourself and keep coding!"
+];
+
+let counter=0;
+
+function showGreeting(){
+
+let random=Math.floor(Math.random()*greetings.length);
+
+document.getElementById("message").innerHTML=greetings[random];
+
+}
+
+function showQuote(){
+
+let random=Math.floor(Math.random()*quotes.length);
+
+document.getElementById("quote").innerHTML=quotes[random];
+
+}
+
+function changeBackground(){
+
+const colors=[
+"#ff595e",
+"#1982c4",
+"#8ac926",
+"#6a4c93",
+"#ffca3a",
+"#00b894",
+"#f72585"
+];
+
+let random=Math.floor(Math.random()*colors.length);
+
+document.body.style.background=colors[random];
+
+}
+
+function toggleInfo(){
+
+let info=document.getElementById("info");
+
+if(info.style.display==="block"){
+info.style.display="none";
+}
+else{
+info.style.display="block";
+}
+
+}
+
+function increase(){
+
+counter++;
+
+document.getElementById("count").innerHTML=counter;
+
+}
+
+function decrease(){
+
+counter--;
+
+document.getElementById("count").innerHTML=counter;
+
+}
+
+function resetCounter(){
+
+counter=0;
+
+document.getElementById("count").innerHTML=counter;
+
+}
+
+document.getElementById("themeBtn").addEventListener("click",function(){
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+
+this.innerHTML="☀ Light Mode";
+
+}
+else{
+
+this.innerHTML="🌙 Dark Mode";
+
+}
+
+});
+
+function updateClock(){
+
+const now=new Date();
+
+document.getElementById("clock").innerHTML=now.toLocaleTimeString();
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+</script>
+
+</body>
+</html>
